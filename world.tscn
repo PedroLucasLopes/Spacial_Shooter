@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddtqwdjmwqvc1"]
+
+[ext_resource type="PackedScene" uid="uid://ckcddr4x11wuc" path="res://player_ship/ship.tscn" id="1_5wocy"]
+[ext_resource type="PackedScene" uid="uid://7dxegroh1258" path="res://enemies/enemy_generator.tscn" id="1_xnane"]
+[ext_resource type="PackedScene" uid="uid://csgxijcr6oyq3" path="res://effects/space_background.tscn" id="2_v1m4k"]
+
+[node name="World" type="Node2D"]
+
+[node name="EnemyGenerator" parent="." instance=ExtResource("1_xnane")]
+
+[node name="Ship" parent="." instance=ExtResource("1_5wocy")]
+position = Vector2(80, 216)
+
+[node name="SpaceBackground" parent="." instance=ExtResource("2_v1m4k")]
