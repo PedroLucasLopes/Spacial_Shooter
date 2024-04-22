@@ -43,6 +43,8 @@ radius = 7.0
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_jrr4g")
 animation = &"move"
+autoplay = "move"
+frame_progress = 0.488204
 
 [node name="StatsComponent" parent="." index="1"]
 health = 4

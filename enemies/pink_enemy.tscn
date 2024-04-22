@@ -1,0 +1,126 @@
+[gd_scene load_steps=18 format=3 uid="uid://dwuverre505m4"]
+
+[ext_resource type="PackedScene" uid="uid://c63kafmaymedo" path="res://enemies/enemy.tscn" id="1_vg0sg"]
+[ext_resource type="Script" path="res://enemies/pink_enemy.gd" id="2_bchxe"]
+[ext_resource type="Texture2D" uid="uid://dxx05xpyyke1c" path="res://assets/pink_enemy.png" id="2_c24bn"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="4_agqhm"]
+[ext_resource type="Script" path="res://components/border_bounce_component.gd" id="5_sdooy"]
+[ext_resource type="Script" path="res://components/timed_state_componoent.gd" id="6_5dq2e"]
+[ext_resource type="Script" path="res://components/state_component.gd" id="7_l52fy"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="8_aty7m"]
+[ext_resource type="PackedScene" uid="uid://dwjm1q63gqh61" path="res://projectiles/pink_enemy_projectile.tscn" id="9_r4f4a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjuiv"]
+atlas = ExtResource("2_c24bn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxr5l"]
+atlas = ExtResource("2_c24bn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqduy"]
+atlas = ExtResource("2_c24bn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38gum"]
+atlas = ExtResource("2_c24bn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kgpo"]
+atlas = ExtResource("2_c24bn")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4wi4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjuiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxr5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqduy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38gum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kgpo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_22cb1"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4foqc"]
+radius = 6.08276
+
+[node name="PinkEnemy" instance=ExtResource("1_vg0sg")]
+script = ExtResource("2_bchxe")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_l4wi4")
+autoplay = "default"
+
+[node name="StatsComponent" parent="." index="1"]
+health = 4
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 0)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(-2.98023e-07, -0.5)
+scale = Vector2(0.7, 0.65)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("CircleShape2D_22cb1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CircleShape2D_4foqc")
+
+[node name="Marker2D" type="Marker2D" parent="." index="13"]
+
+[node name="States" type="Node" parent="." index="14"]
+
+[node name="MoveDownState" type="Node" parent="States" index="0"]
+unique_name_in_owner = true
+script = ExtResource("6_5dq2e")
+duration = 2.0
+
+[node name="MoveDownComponent" type="Node" parent="States/MoveDownState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_agqhm")
+actor = NodePath("../../..")
+velocity = Vector2(0, 15)
+
+[node name="MoveSideState" type="Node" parent="States" index="1"]
+unique_name_in_owner = true
+script = ExtResource("6_5dq2e")
+duration = 3.0
+
+[node name="MoveSideComponent" type="Node" parent="States/MoveSideState" index="0" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("4_agqhm")
+actor = NodePath("../../..")
+velocity = Vector2(20, 0)
+
+[node name="BorderBounceComponent" type="Node" parent="States/MoveSideState" index="1" node_paths=PackedStringArray("actor", "move_component")]
+script = ExtResource("5_sdooy")
+actor = NodePath("../../..")
+move_component = NodePath("../MoveSideComponent")
+
+[node name="FireState" type="Node" parent="States" index="2"]
+unique_name_in_owner = true
+script = ExtResource("7_l52fy")
+
+[node name="ProjectileSpawnerComponent" type="Node2D" parent="States/FireState" index="0"]
+unique_name_in_owner = true
+script = ExtResource("8_aty7m")
+scene = ExtResource("9_r4f4a")
+
+[node name="PauseState" type="Node" parent="States" index="3"]
+unique_name_in_owner = true
+script = ExtResource("6_5dq2e")
