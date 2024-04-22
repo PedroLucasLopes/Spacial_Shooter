@@ -120,6 +120,7 @@ script = ExtResource("1_22gq5")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("2_odl0x")
+health = 2
 
 [node name="flame" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

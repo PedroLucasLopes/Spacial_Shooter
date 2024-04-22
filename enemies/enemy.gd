@@ -1,3 +1,4 @@
+class_name Enemy
 extends Node
 
 @onready var move_component: MoveComponent = $MoveComponent as MoveComponent
@@ -9,8 +10,13 @@ extends Node
 @onready var hitbox_component: HitboxComponent = $HitboxComponent as HitboxComponent
 @onready var scale_component: ScaleComponent = $ScaleComponent as ScaleComponent
 @onready var destroyed_component: DestroyedComponent = $DestroyedComponent as DestroyedComponent
+@onready var score_component: ScoreComponent = $ScoreComponent as ScoreComponent
 
 func _ready():
+	stats_component.no_health.connect(func():
+		score_component.adjust_score()
+	)
+	
 	visible_on_screen_notifier_2d.screen_exited.connect(queue_free)
 	hurtbox_component.hurt.connect(func(hitbox: HitboxComponent):
 		scale_component.tween_scale()

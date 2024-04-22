@@ -12,6 +12,7 @@ extends Node2D
 func _ready():
 	fire_rate_timer.timeout.connect(fire_lasers)
 	
+	
 func fire_lasers():
 	spawner_component.spawn(left_muzzle.global_position)
 	spawner_component.spawn(right_muzzle.global_position)

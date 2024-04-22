@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvpqopwmwxyx4"]
+
+[ext_resource type="PackedScene" uid="uid://c63kafmaymedo" path="res://enemies/enemy.tscn" id="1_xi1ws"]
+[ext_resource type="Texture2D" uid="uid://ck7da833kg8vu" path="res://assets/yellow_enemy.png" id="2_0monn"]
+[ext_resource type="Script" path="res://enemies/yellow_enemy.gd" id="2_2q428"]
+[ext_resource type="Script" path="res://components/border_bounce_component.gd" id="4_wt0jk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntsw"]
+atlas = ExtResource("2_0monn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_367gl"]
+atlas = ExtResource("2_0monn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4gr7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_367gl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="YellowEnemy" instance=ExtResource("1_xi1ws")]
+script = ExtResource("2_2q428")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_t4gr7")
+autoplay = "default"
+frame_progress = 0.153888
+
+[node name="StatsComponent" parent="." index="1"]
+health = 8
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 10)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(1.19209e-07, 2.98023e-07)
+scale = Vector2(0.8, 0.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent" index="0"]
+polygon = PackedVector2Array(-8, -5, -8, 5, -7, 5, -7, 4, -6, 4, -6, 3, -5, 3, -5, 4, -4, 4, -4, 5, 4, 5, 4, 4, 5, 4, 5, 3, 6, 3, 6, 4, 7, 4, 7, 5, 8, 5, 8, -5, 7, -5, 7, -4, 6, -4, 6, -3, 5, -3, 5, -4, 4, -4, 4, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -4, -7, -4, -7, -5)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HitboxComponent" index="0"]
+polygon = PackedVector2Array(-8, -5, -8, 5, -7, 5, -7, 4, -6, 4, -6, 3, -5, 3, -5, 4, -4, 4, -4, 5, 4, 5, 4, 4, 5, 4, 5, 3, 6, 3, 6, 4, 7, 4, 7, 5, 8, 5, 8, -5, 7, -5, 7, -4, 6, -4, 6, -3, 5, -3, 5, -4, 4, -4, 4, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -4, -7, -4, -7, -5)
+
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 10
+
+[node name="BorderBounceComponent" type="Node" parent="." index="13" node_paths=PackedStringArray("actor", "move_component")]
+script = ExtResource("4_wt0jk")
+actor = NodePath("..")
+move_component = NodePath("../MoveComponent")
