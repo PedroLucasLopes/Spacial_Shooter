@@ -52,7 +52,7 @@ polygon = PackedVector2Array(-8, -5, -8, 5, -7, 5, -7, 4, -6, 4, -6, 3, -5, 3, -
 polygon = PackedVector2Array(-8, -5, -8, 5, -7, 5, -7, 4, -6, 4, -6, 3, -5, 3, -5, 4, -4, 4, -4, 5, 4, 5, 4, 4, 5, 4, 5, 3, 6, 3, 6, 4, 7, 4, 7, 5, 8, 5, 8, -5, 7, -5, 7, -4, 6, -4, 6, -3, 5, -3, 5, -4, 4, -4, 4, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -4, -7, -4, -7, -5)
 
 [node name="ScoreComponent" parent="." index="12"]
-adjust_amount = 10
+adjust_amount = 8
 
 [node name="BorderBounceComponent" type="Node" parent="." index="13" node_paths=PackedStringArray("actor", "move_component")]
 script = ExtResource("4_wt0jk")

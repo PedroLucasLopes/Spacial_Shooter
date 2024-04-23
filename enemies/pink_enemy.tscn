@@ -82,6 +82,9 @@ shape = SubResource("CircleShape2D_22cb1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("CircleShape2D_4foqc")
 
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 10
+
 [node name="Marker2D" type="Marker2D" parent="." index="13"]
 
 [node name="States" type="Node" parent="." index="14"]

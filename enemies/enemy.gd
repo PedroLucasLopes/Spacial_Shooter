@@ -11,6 +11,7 @@ extends Node
 @onready var scale_component: ScaleComponent = $ScaleComponent as ScaleComponent
 @onready var destroyed_component: DestroyedComponent = $DestroyedComponent as DestroyedComponent
 @onready var score_component: ScoreComponent = $ScoreComponent as ScoreComponent
+@onready var variable_pitch_audio_stream_player: VariablePitchAudioStreamPlayer = $VariablePitchAudioStreamPlayer
 
 func _ready():
 	stats_component.no_health.connect(func():
@@ -22,6 +23,7 @@ func _ready():
 		scale_component.tween_scale()
 		flash_component.flash()
 		shake_component.tween_shake()
-		)
+		variable_pitch_audio_stream_player.play_with_variance()
+	)
 	stats_component.no_health.connect(queue_free)
 	hitbox_component.hit_hurtbox.connect(destroyed_component.destroy.unbind(1))
